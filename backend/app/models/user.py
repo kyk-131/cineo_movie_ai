@@ -28,6 +28,11 @@ class User(Base):
     credit_transactions = relationship("CreditTransaction", back_populates="user")
     generations = relationship("Generation", back_populates="user")
     
+    @property
+    def plan_name(self) -> str:
+        """Get the plan name, fallback to 'Free Plan' if no plan"""
+        return self.plan.name if self.plan else "Free Plan"
+    
     def __repr__(self):
         return f"<User {self.email}>"
     
